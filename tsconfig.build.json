@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.base.json",
+  "files": [
+    "./src/index.ts",
+    "./src/angular/angular.ts",
+    "./src/angular/helpers.ts",
+    "./src/core/core.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts",
+    "node_modules/@types/jest"
+  ],
+  "compilerOptions": {
+    "composite": true
+  }
+}

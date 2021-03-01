@@ -1,0 +1,118 @@
+{
+  "name": "@simple-deck/test-decorators",
+  "version": "1.2.8",
+  "license": "MIT",
+  "private": false,
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simple-deck/test-decorators.git"
+  },
+  "scripts": {
+    "build": "tsc -p ./tsconfig.build.json",
+    "prebuild": "rm -rf dist",
+    "prerelease": "npm run prep-package",
+    "release": "semantic-release",
+    "copy-markdown": "cp CHANGELOG.md dist; cp README.md dist;",
+    "lint": "eslint ./src/ --ext .ts",
+    "prep-package": "node bin/prep-package.js",
+    "test": "jest"
+  },
+  "peerDependenciesMeta": {
+    "@angular/core": {
+      "optional": true
+    },
+    "jest": {
+      "optional": false
+    }
+  },
+  "peerDependencies": {
+    "jest": "^26.6.3",
+    "@angular/core": "11.x",
+    "reflect-metadata": "*"
+  },
+  "devDependencies": {
+    "@angular/core": "^11.2.3",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/exec": "^5.0.0",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.2.0",
+    "@types/jest": "^26.0.20",
+    "@types/lodash.chunk": "^4.2.6",
+    "@types/mime-types": "^2.1.0",
+    "@types/node": "^14.14.22",
+    "@typescript-eslint/eslint-plugin": "^4.15.0",
+    "@typescript-eslint/parser": "^4.15.0",
+    "eslint": "^7.19.0",
+    "husky": "^5.0.9",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.4",
+    "reflect-metadata": "^0.1.13",
+    "semantic-release": "^17.3.8",
+    "ts-jest": "^26.5.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.2"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": "eslint --fix"
+  },
+  "release": {
+    "branches": [
+      {
+        "name": "master"
+      }
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/exec",
+        {
+          "prepareCmd": "npm run copy-markdown"
+        }
+      ],
+      [
+        "@semantic-release/npm",
+        {
+          "pkgRoot": "dist"
+        }
+      ],
+      [
+        "@semantic-release/exec",
+        {
+          "prepareCmd": "npm version ${nextRelease.version} --no-git-tag-version"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md",
+            "package.json",
+            "package-lock.json"
+          ],
+          "message": "chore(release): ${nextRelease.version} [skip ci]"
+        }
+      ]
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
