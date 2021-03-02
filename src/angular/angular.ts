@@ -70,10 +70,6 @@ const runner = createRunner((
     });
 });
 
-export type Spec<S, T> = {
-  [P in keyof S]: S[P] extends Function ? S[P] extends (arg: T) => unknown ? S[P] : never : S[P];
-};
-
 export function DescribeAngularComponent<T, P extends Spec<P, ComponentFixture<T>>> (target: Type<T>, ngModule: NgModule) {
   return (suite: Type<P>): void => {
     Injectable({ providedIn: 'root' })(target);

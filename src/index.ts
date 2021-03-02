@@ -11,6 +11,7 @@ export {
   DoneCallback,
   It,
   TestCase,
-  TestSuite
+  TestSuite,
+  Spec
 } from './core/core';
 
