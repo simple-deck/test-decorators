@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/simple-deck/test-decorators/compare/v1.0.0...v1.0.1) (2021-03-02)
+
+
+### Bug Fixes
+
+* unify Spec typing ([7d9d4a7](https://github.com/simple-deck/test-decorators/commit/7d9d4a7791b776b20335ccd5b1584f4d33b75267))
+* **angular:** :bug: use correct `Spec` typing for class decorators ([683f476](https://github.com/simple-deck/test-decorators/commit/683f476feafba56901ad01a7f7076927df535b39))
+
 # 1.0.0 (2021-03-01)
 
 
