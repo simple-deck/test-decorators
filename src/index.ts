@@ -3,6 +3,9 @@ export {
   DescribeAngularService
 } from './angular/angular';
 export {
+  MockAngularProvider
+} from './angular/helpers';
+export {
   AfterAll,
   AfterEach,
   BeforeAll,
@@ -10,8 +13,7 @@ export {
   createRunner,
   DoneCallback,
   It,
+  Spec,
   TestCase,
-  TestSuite,
-  Spec
+  TestSuite
 } from './core/core';
-
