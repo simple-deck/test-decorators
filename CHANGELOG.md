@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/simple-deck/test-decorators/compare/v1.0.2...v1.0.3) (2021-03-02)
+
+
+### Bug Fixes
+
+* **angular:** :label: export mock provider helper ([0e52a57](https://github.com/simple-deck/test-decorators/commit/0e52a57a4b86d85bf44baa4c96bb793e47a53c4d))
+
 ## [1.0.2](https://github.com/simple-deck/test-decorators/compare/v1.0.1...v1.0.2) (2021-03-02)
 
 
