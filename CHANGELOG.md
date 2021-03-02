@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/simple-deck/test-decorators/compare/v1.0.3...v1.1.0) (2021-03-02)
+
+
+### Features
+
+* allow test suite to be recycled ([2e90469](https://github.com/simple-deck/test-decorators/commit/2e9046909135a581c490068afed30cac56ccc953))
+
 ## [1.0.3](https://github.com/simple-deck/test-decorators/compare/v1.0.2...v1.0.3) (2021-03-02)
 
 
