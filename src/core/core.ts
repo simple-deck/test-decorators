@@ -32,7 +32,7 @@ export interface PrepArgsFnReturn<S, T> {
   testArgument: T;
 }
 
-export type PrepArgsFn<C, S> = (Suite: Type<unknown>, testSuiteConfig: C) => PrepArgsFnReturn<S, unknown>|Promise<PrepArgsFnReturn<S, unknown>>;
+export type PrepArgsFn<C, S> = (Suite: Type<unknown>, testSuiteConfig: C, test: unknown|null) => PrepArgsFnReturn<S, unknown>|Promise<PrepArgsFnReturn<S, unknown>>;
 export type Spec<S, T> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [P in keyof S]: S[P] extends Fn ? S[P] extends (arg: T) => any ? S[P] : never : S[P];
@@ -190,16 +190,16 @@ export function createRunner<C> (
       let testSuite: any;
 
       testRunners.beforeAll(async (done: DoneCallback) => {
-        const result = await prepArgs(Suite as Type<unknown>, configuredTests.config as C);
+        const result = await prepArgs(Suite as Type<unknown>, configuredTests.config as C, testSuite);
         arg = result.testArgument;
-        testSuite = result.suite;
+        testSuite = result.suite ?? testSuite;
         await LifecycleEvent(configuredTests, 'beforeAll', arg, testSuite, done);
       });
 
       testRunners.beforeEach(async (done: DoneCallback) => {
-        const result = await prepArgs(Suite as Type<unknown>, configuredTests.config as C);
+        const result = await prepArgs(Suite as Type<unknown>, configuredTests.config as C, testSuite);
         arg = result.testArgument;
-        testSuite = result.suite;
+        testSuite = result.suite ?? testSuite;
         await LifecycleEvent(configuredTests, 'beforeEach', arg, testSuite, done);
       });
   

@@ -40,12 +40,12 @@ function defaultConfig (
 
 const runner = createRunner((
   Suite: Type<unknown>,
-  configuredTests: DescribeConfig
+  configuredTests: DescribeConfig,
+  test: unknown|null
 ): Promise<PrepArgsFnReturn<unknown, unknown>> => {
   configuredTests = defaultConfig(Suite, configuredTests);
   const mod = TestBed.configureTestingModule(configuredTests);
   let arg: unknown;
-  let test: unknown;
 
   return mod
     .compileComponents()
