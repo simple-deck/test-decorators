@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/simple-deck/test-decorators/compare/v1.0.1...v1.0.2) (2021-03-02)
+
+
+### Bug Fixes
+
+* use any for `Type` defintiion ([5b88bb9](https://github.com/simple-deck/test-decorators/commit/5b88bb9414c01f32d0917e270ca7ba3e94cab68f))
+
 ## [1.0.1](https://github.com/simple-deck/test-decorators/compare/v1.0.0...v1.0.1) (2021-03-02)
 
 
