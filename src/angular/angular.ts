@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Injectable, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import 'reflect-metadata';
 import { createRunner, PrepArgsFnReturn, Spec, TestSuite, Type } from '../core/core';
 
@@ -70,8 +70,12 @@ const runner = createRunner((
     });
 });
 
-export function DescribeAngularComponent (target: Type<unknown>, ngModule: NgModule): ClassDecorator {
-  return (suite: Function) => {
+export type Spec<S, T> = {
+  [P in keyof S]: S[P] extends Function ? S[P] extends (arg: T) => unknown ? S[P] : never : S[P];
+};
+
+export function DescribeAngularComponent<T, P extends Spec<P, ComponentFixture<T>>> (target: Type<T>, ngModule: NgModule) {
+  return (suite: Type<P>): void => {
     Injectable({ providedIn: 'root' })(target);
 
     TestSuite<DescribeConfig, unknown, Spec<unknown, unknown>>({
@@ -85,8 +89,8 @@ export function DescribeAngularComponent (target: Type<unknown>, ngModule: NgMod
 }
 
 
-export function DescribeAngularService (target: Type<unknown>, ngModule: NgModule): ClassDecorator {
-  return (suite: Function) => {
+export function DescribeAngularService<T, P extends Spec<P, T>> (target: Type<T>, ngModule: NgModule) {
+  return (suite: Type<P>): void => {
     Injectable({ providedIn: 'root' })(target);
 
     TestSuite<DescribeConfig, unknown, Spec<unknown, unknown>>({
