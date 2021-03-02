@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export type Type<T> = new (...args: unknown[]) => T;
+export type Type<T> = new (...args: any[]) => T;
 export type DoneCallback = (e?: Error) => void;
 interface TestFns {
   describe: (name: string, arg: () => any) => any;
