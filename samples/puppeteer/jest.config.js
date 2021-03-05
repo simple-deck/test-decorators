@@ -4,7 +4,8 @@ module.exports = {
   collectCoverage: true,
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
   moduleNameMapper: {
-    "^@simple-deck/test-decorators$": "../../src/index.ts"
+    "^@simple-deck/test-decorators$": "../../dist/index.ts",
+    "^@simple-deck/test-decorators/(.*)$": "../../dist/$1"
   },
   globals: {
     'ts-jest': {

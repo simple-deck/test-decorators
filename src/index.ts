@@ -1,11 +1,4 @@
 export {
-  DescribeAngularComponent,
-  DescribeAngularService
-} from './angular/angular';
-export {
-  MockAngularProvider
-} from './angular/helpers';
-export {
   AfterAll,
   AfterEach,
   BeforeAll,
@@ -16,7 +9,4 @@ export {
   Spec,
   TestCase,
   TestSuite
-} from './core/core';
-export {
-  DescribeWebApp
-} from './puppeteer/puppeteer';
+} from './core';

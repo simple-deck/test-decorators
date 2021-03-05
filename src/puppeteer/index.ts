@@ -1,6 +1,6 @@
 import { Browser, launch, Page } from 'puppeteer';
 import 'reflect-metadata';
-import { createRunner, PrepArgsFnReturn, Spec, TestSuite, Type } from '../core/core';
+import { createRunner, PrepArgsFnReturn, Spec, TestSuite, Type } from '../core';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const browserStorage = new WeakMap<any, Browser>();
@@ -12,10 +12,15 @@ interface PuppeteerOptions {
 }
 
 const runner = createRunner(async (
-  _: Type<unknown>,
+  Suite: Type<unknown>,
   configuredTests: PuppeteerOptions,
-  test: unknown|null
+  test: unknown|null,
+  _: unknown,
+  isInitialRun: boolean
 ): Promise<PrepArgsFnReturn<unknown, unknown>> => {
+  if (!test) {
+    test = new Suite();
+  }
   let existingBrowser = browserStorage.get(test) ?? null;
   if (existingBrowser && !configuredTests.reuseBrowser) {
     await existingBrowser.close();
@@ -30,10 +35,14 @@ const runner = createRunner(async (
     browserStorage.set(test, existingBrowser);
   }
 
-  const page = await existingBrowser.newPage();
+  let page: Page|null = null;
 
-  if (configuredTests.defaultRoute) {
-    await page.goto(configuredTests.defaultRoute);
+  if (!isInitialRun) {
+    page = await existingBrowser.newPage();
+
+    if (configuredTests.defaultRoute) {
+      await page.goto(configuredTests.defaultRoute);
+    }
   }
 
   return {

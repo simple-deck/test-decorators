@@ -1,4 +1,5 @@
-import { DescribeWebApp, Spec, TestCase } from '@simple-deck/test-decorators';
+import { Spec, TestCase } from '@simple-deck/test-decorators';
+import { DescribeWebApp } from '@simple-deck/test-decorators/puppeteer';
 import { Page } from 'puppeteer';
 
 @DescribeWebApp('google.com', {
@@ -8,7 +9,8 @@ import { Page } from 'puppeteer';
 })
 export class SampleSpec implements Spec<SampleSpec, Page> {
   @TestCase('should be able to see google.com')
-  testShouldSeeGoogle (page: Page): void {
-    expect(page.title).toContain('google');
+  async testShouldSeeGoogle (page: Page): Promise<void> {
+    const title = await page.title();
+    expect(title.toLowerCase()).toContain('google');
   }
 }

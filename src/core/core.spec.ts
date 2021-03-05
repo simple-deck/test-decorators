@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { BeforeEach, createRunner, DoneCallback, TestCase, TestSuite, Type } from './core';
+import { BeforeEach, createRunner, DoneCallback, TestCase, TestSuite, Type } from '.';
 /**
  * Emulate jest functions 'describe', 'it', etc.
  * 
