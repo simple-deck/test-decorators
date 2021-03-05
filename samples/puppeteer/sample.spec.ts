@@ -3,7 +3,7 @@ import { DescribeWebApp } from '@simple-deck/test-decorators/puppeteer';
 import { Page } from 'puppeteer';
 
 @DescribeWebApp('google.com', {
-  headless: false,
+  headless: true,
   reuseBrowser: true,
   defaultRoute: 'https://google.com'
 })
