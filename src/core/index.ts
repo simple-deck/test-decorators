@@ -105,22 +105,8 @@ export function AfterEach (): MethodDecorator {
 export function AfterAll (): MethodDecorator {
   return Hook('afterAll');
 }
-export const It: MethodDecorator = (target: any, attr: string|symbol, desc?: PropertyDescriptor) => {
-  attr = attr.toString();
-  let storage = getOrDefault(target.constructor as Type<unknown>);
-  storage = {
-    ...storage,
-    tests: [
-      ...storage.tests,
-      {
-        attr,
-        testName: attr
-      }
-    ]
-  };
-  Storage.set(target.constructor, storage);
-
-  return desc;
+export const It: MethodDecorator = (target: any, attr: string|symbol, desc: PropertyDescriptor) => {
+  return TestCase(attr.toString())(target, attr, desc);
 };
 
 export function TestCase (testName?: string): MethodDecorator {
