@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/simple-deck/test-decorators/compare/v1.1.0...v1.2.0) (2021-03-05)
+
+
+### Features
+
+* new jest runner and samples ([8d38f65](https://github.com/simple-deck/test-decorators/commit/8d38f65f61dbbbc79ce5281fcc4f8c267237c496))
+* **puppeteer:** :sparkles: introduces a puppeteer test runner ([356d22f](https://github.com/simple-deck/test-decorators/commit/356d22f82bed90de380e5a6fd263a0e3cf0834cc))
+
 # [1.1.0](https://github.com/simple-deck/test-decorators/compare/v1.0.3...v1.1.0) (2021-03-02)
 
 
