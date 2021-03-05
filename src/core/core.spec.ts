@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { BeforeEach, createRunner, DoneCallback, TestCase, TestSuite, Type } from './core';
+import { BeforeEach, createRunner, DoneCallback, TestCase, TestSuite, Type } from '.';
 /**
  * Emulate jest functions 'describe', 'it', etc.
  * 
@@ -80,7 +80,7 @@ describe('core test runner', () => {
         testArgument: arg,
         suite: new suite()
       };
-    }, jestMock);
+    }, undefined, jestMock);
 
 
     @TestSuite(initialConfig)
@@ -110,7 +110,7 @@ describe('core test runner', () => {
         testArgument: arg,
         suite: new suite()
       };
-    }, jestMock);
+    }, undefined, jestMock);
 
 
     @TestSuite(initialConfig)
@@ -142,7 +142,7 @@ describe('core test runner', () => {
         testArgument: arg,
         suite: new suite()
       };
-    }, jestMock);
+    }, undefined, jestMock);
 
     let beforeEachRun = false;
     let testHasRun = false;

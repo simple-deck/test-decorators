@@ -1,5 +1,5 @@
 import { Injectable, Injector, Provider } from '@angular/core';
-import { Type } from '../core/core';
+import { Type } from '../core';
 
 export function MockAngularProvider<O, M extends O> (
   mockedClass: Type<M>,
