@@ -32,7 +32,10 @@ export interface PrepArgsFnReturn<S, T> {
   testArgument: T;
 }
 
-export type PrepArgsFn<C, S> = (Suite: Type<unknown>, testSuiteConfig: C, test: unknown|null) => PrepArgsFnReturn<S, unknown>|Promise<PrepArgsFnReturn<S, unknown>>;
+type PrepArgsArgs<C> = [Suite: Type<unknown>, testSuiteConfig: C, test: unknown|null, arg: unknown|null, isInitialRun: boolean];
+type CleanupArgsArgs<C> = [Suite: Type<unknown>, testSuiteConfig: C, test: unknown|null, arg: unknown|null, isFinalRun: boolean];
+export type PrepArgsFn<C, S> = (...args: PrepArgsArgs<C>) => PrepArgsFnReturn<S, unknown>|Promise<PrepArgsFnReturn<S, unknown>>;
+export type CleanupArgsFn<C> = (...args: CleanupArgsArgs<C>) => Promise<void>;
 export type Spec<S, T> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [P in keyof S]: S[P] extends Fn ? S[P] extends (arg: T) => any ? S[P] : never : S[P];
@@ -165,6 +168,7 @@ async function executeFunction (test: any, prop: string, arg: any) {
 
 export function createRunner<C> (
   prepArgs: PrepArgsFn<C, unknown>,
+  cleanup?: CleanupArgsFn<C>,
   testRunners: TestFns = {
     describe,
     beforeAll,
@@ -190,14 +194,14 @@ export function createRunner<C> (
       let testSuite: any;
 
       testRunners.beforeAll(async (done: DoneCallback) => {
-        const result = await prepArgs(Suite as Type<unknown>, configuredTests.config as C, testSuite);
+        const result = await prepArgs(Suite as Type<unknown>, configuredTests.config as C, testSuite, arg, true);
         arg = result.testArgument;
         testSuite = result.suite ?? testSuite;
         await LifecycleEvent(configuredTests, 'beforeAll', arg, testSuite, done);
       });
 
       testRunners.beforeEach(async (done: DoneCallback) => {
-        const result = await prepArgs(Suite as Type<unknown>, configuredTests.config as C, testSuite);
+        const result = await prepArgs(Suite as Type<unknown>, configuredTests.config as C, testSuite, arg, false);
         arg = result.testArgument;
         testSuite = result.suite ?? testSuite;
         await LifecycleEvent(configuredTests, 'beforeEach', arg, testSuite, done);
@@ -217,12 +221,18 @@ export function createRunner<C> (
       });
 
       testRunners.afterEach(async (done: DoneCallback) => {
+        if (cleanup) {
+          cleanup(testSuite, configuredTests.config as C, testSuite, arg, false);
+        }
         await LifecycleEvent(configuredTests, 'afterEach', arg, testSuite, done);
       });
   
       
 
       testRunners.afterAll(async (done: DoneCallback) => {
+        if (cleanup) {
+          cleanup(testSuite, configuredTests.config as C, testSuite, arg, true);
+        }
         await LifecycleEvent(configuredTests, 'afterAll', arg, testSuite, done);
       });
     });

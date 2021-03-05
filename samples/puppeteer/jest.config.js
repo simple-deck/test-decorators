@@ -3,12 +3,12 @@ module.exports = {
   testEnvironment: 'node',
   collectCoverage: true,
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+  moduleNameMapper: {
+    "^@simple-deck/test-decorators$": "../../src/index.ts"
+  },
   globals: {
     'ts-jest': {
-      tsconfig: './tsconfig.spec.json'
+      tsconfig: './tsconfig.json'
     }
-  },
-  moduleNameMapper: {
-    "^@simple-deck/test-decorators$": "<rootDir>/src/index.ts"
   }
 };

@@ -19,7 +19,13 @@
     "test": "jest"
   },
   "peerDependenciesMeta": {
+    "puppeteer": {
+      "optional": true
+    },
     "@angular/core": {
+      "optional": true
+    },
+    "@angular/compiler": {
       "optional": true
     },
     "jest": {
@@ -28,11 +34,14 @@
   },
   "peerDependencies": {
     "jest": "^26.6.3",
+    "puppeteer": "^8.0.0",
     "@angular/core": "11.x",
+    "@angular/compiler": "11.x",
     "reflect-metadata": "*"
   },
   "devDependencies": {
     "@angular/core": "^11.2.3",
+    "@angular/compiler": "^11.2.3",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@semantic-release/changelog": "^5.0.1",
@@ -43,12 +52,14 @@
     "@types/lodash.chunk": "^4.2.6",
     "@types/mime-types": "^2.1.0",
     "@types/node": "^14.14.22",
+    "@types/puppeteer": "^5.4.3",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
     "eslint": "^7.19.0",
     "husky": "^5.0.9",
     "jest": "^26.6.3",
     "lint-staged": "^10.5.4",
+    "puppeteer": "^8.0.0",
     "reflect-metadata": "^0.1.13",
     "semantic-release": "^17.3.8",
     "ts-jest": "^26.5.1",

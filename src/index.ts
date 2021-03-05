@@ -17,3 +17,6 @@ export {
   TestCase,
   TestSuite
 } from './core/core';
+export {
+  DescribeWebApp
+} from './puppeteer/puppeteer';
