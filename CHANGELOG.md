@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/simple-deck/test-decorators/compare/v1.2.0...v1.3.0) (2021-08-02)
+
+
+### Features
+
+* **core:** :arrow_up: upgrade jest to 27 ([3d63670](https://github.com/simple-deck/test-decorators/commit/3d63670b800a23be4b0f6a97d29a1dd314316180))
+
 # [1.2.0](https://github.com/simple-deck/test-decorators/compare/v1.1.0...v1.2.0) (2021-03-05)
 
 
