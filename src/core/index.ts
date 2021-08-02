@@ -179,47 +179,57 @@ export function createRunner<C> (
       let arg: any;
       let testSuite: any;
 
-      testRunners.beforeAll(async (done: DoneCallback) => {
-        const result = await prepArgs(Suite as Type<unknown>, configuredTests.config as C, testSuite, arg, true);
-        arg = result.testArgument;
-        testSuite = result.suite ?? testSuite;
-        await LifecycleEvent(configuredTests, 'beforeAll', arg, testSuite, done);
+      testRunners.beforeAll((done: DoneCallback) => {
+        (async () => {
+          const result = await prepArgs(Suite as Type<unknown>, configuredTests.config as C, testSuite, arg, true);
+          arg = result.testArgument;
+          testSuite = result.suite ?? testSuite;
+          await LifecycleEvent(configuredTests, 'beforeAll', arg, testSuite, done);
+        })();
       });
 
-      testRunners.beforeEach(async (done: DoneCallback) => {
-        const result = await prepArgs(Suite as Type<unknown>, configuredTests.config as C, testSuite, arg, false);
-        arg = result.testArgument;
-        testSuite = result.suite ?? testSuite;
-        await LifecycleEvent(configuredTests, 'beforeEach', arg, testSuite, done);
+      testRunners.beforeEach((done: DoneCallback) => {
+        (async () => {
+          const result = await prepArgs(Suite as Type<unknown>, configuredTests.config as C, testSuite, arg, false);
+          arg = result.testArgument;
+          testSuite = result.suite ?? testSuite;
+          await LifecycleEvent(configuredTests, 'beforeEach', arg, testSuite, done);
+        })();
       });
   
       
       configuredTests.tests.forEach(testMetadata => {
         const { testName, attr } = testMetadata;
-        testRunners.it(testName, async (done: any) => {
-          try {
-            await executeFunction(testSuite, attr, arg);
-            done();
-          } catch (e) {
-            done(e);
-          }
+        testRunners.it(testName, (done: any) => {
+          (async () => {
+            try {
+              await executeFunction(testSuite, attr, arg);
+              done();
+            } catch (e) {
+              done(e);
+            }
+          })();
         });
       });
 
-      testRunners.afterEach(async (done: DoneCallback) => {
-        if (cleanup) {
-          cleanup(testSuite, configuredTests.config as C, testSuite, arg, false);
-        }
-        await LifecycleEvent(configuredTests, 'afterEach', arg, testSuite, done);
+      testRunners.afterEach((done: DoneCallback) => {
+        (async () => {
+          if (cleanup) {
+            cleanup(testSuite, configuredTests.config as C, testSuite, arg, false);
+          }
+          await LifecycleEvent(configuredTests, 'afterEach', arg, testSuite, done);
+        })();
       });
   
       
 
-      testRunners.afterAll(async (done: DoneCallback) => {
-        if (cleanup) {
-          cleanup(testSuite, configuredTests.config as C, testSuite, arg, true);
-        }
-        await LifecycleEvent(configuredTests, 'afterAll', arg, testSuite, done);
+      testRunners.afterAll((done: DoneCallback) => {
+        (async () => {
+          if (cleanup) {
+            cleanup(testSuite, configuredTests.config as C, testSuite, arg, true);
+          }
+          await LifecycleEvent(configuredTests, 'afterAll', arg, testSuite, done);
+        })();
       });
     });
   };
